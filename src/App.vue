@@ -36,7 +36,6 @@
 import HelloWorld from './components/HelloWorld.vue'
 import type { UploadProps, UploadUserFile, FormInstance } from 'element-plus'
 import { ref, reactive, toRaw } from 'vue'
-// import './script/pdf.js'
 import * as pdfjsLib from 'pdfjs-dist'
 
 
@@ -87,19 +86,13 @@ const getTestFile = () => {
 }
 
 const handleChange = async (uploadFile, formEl: FormInstance | undefined) => {
-  let blob = new Blob([uploadFile.raw])
-  let url = URL.createObjectURL(blob)
-  console.log(url);
-  
-  console.log(uploadFile);
+  const blob = new Blob([uploadFile.raw])
+  const url = URL.createObjectURL(blob)
   
   pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('./../public/pdf.worker.js', import.meta.url).href;
-  // pdfjsLib.GlobalWorkerOptions.workerSrc = './../node_modules/pdfjs-dist/build/pdf.worker.js';
   var loadingTask = pdfjsLib.getDocument(url)
   loadingTask.promise.then(async function(pdf) {
-    // you can now use *pdf* here
     const pageCount = pdf.numPages;
-    console.log('Number of pages:', pageCount);
 
     // 逐页读取PDF文件的内容
     let allItems = []
@@ -122,7 +115,6 @@ const handleChange = async (uploadFile, formEl: FormInstance | undefined) => {
     })
     xmlText.value = new XMLSerializer().serializeToString(xmlDocument);
     console.log(xmlDocument);
-    
   }).catch(console.log)
   formEl.validate()
 }
