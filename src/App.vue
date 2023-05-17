@@ -93,7 +93,7 @@ const handleChange = async (uploadFile, formEl: FormInstance | undefined) => {
   
   console.log(uploadFile);
   
-  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('./../node_modules/pdfjs-dist/build/pdf.worker.js', import.meta.url).href;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL('./../public/pdf.worker.js', import.meta.url).href;
   // pdfjsLib.GlobalWorkerOptions.workerSrc = './../node_modules/pdfjs-dist/build/pdf.worker.js';
   var loadingTask = pdfjsLib.getDocument(url)
   loadingTask.promise.then(async function(pdf) {
